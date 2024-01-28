@@ -1,4 +1,6 @@
 public class Opp_OrderController {
+
+    
     public final Opportunity opportunity {get;set;}
     public final List<OpportunityLineItem> produtosDaOpp {get;set;}
     public Opp_OrderController(){
@@ -26,5 +28,36 @@ public class Opp_OrderController {
                                 ];
       
         return items;
+    }
+    public PageReference pdfAction() {
+        PageReference savepage;
+        savepage = Page.PDFPedido;
+        savepage.getParameters().put('id',MstrID);
+        system.debug('id:- '+MstrID);
+        BLOB pdfBlob;
+        IF (!Test.isRunningTest()) {
+            pdfBlob = savepage.getContent(); //generate the pdf BLOB
+        } ELSE { 
+            pdfBlob = BLOB.valueOf('Test');
+        }
+    
+        // Create a new ContentVersion record
+        ContentVersion conVer = new ContentVersion();
+        conVer.ContentLocation = 'S'; // TO USE S specify this document IS IN Salesforce, TO USE E FOR external files
+        conVer.PathOnClient = 'myFile.pdf'; 
+        conVer.Title = 'My File'; 
+        conVer.VersionData = pdfBlob;
+        system.debug('conVer@@ ' + conVer);
+        insert conVer;  
+    
+        // Create a new ContentDocumentLink record
+        Id conDoc = [SELECT ContentDocumentId FROM ContentVersion WHERE Id =:conVer.Id].ContentDocumentId;
+        ContentDocumentLink conDocLink = new ContentDocumentLink();
+        conDocLink.LinkedEntityId = MstrID;
+        conDocLink.ContentDocumentId = conDoc; 
+        conDocLink.shareType = 'V';
+        insert conDocLink;
+    
+        return savepage;
     }
 }

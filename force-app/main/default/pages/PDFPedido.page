@@ -1,6 +1,9 @@
 <!-- observe como nas proximas duas linhas chama o controller e o css da pagina -->
 <apex:page controller="Opp_OrderController" renderAs="pdf">
       <apex:stylesheet value="{!$Resource.cssPedido}" /> 
+      <apex:form>
+        <apex:commandButton action="{!pdfAction}" value="Salvar PDF"/>
+    </apex:form>
     <html>
         <!-- no head especificamos as dimenses da pagina -->
         <head>
