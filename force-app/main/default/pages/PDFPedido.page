@@ -1,0 +1,80 @@
+<!-- observe como nas proximas duas linhas chama o controller e o css da pagina -->
+<apex:page controller="Opp_OrderController" renderAs="pdf">
+      <apex:stylesheet value="{!$Resource.cssPedido}" /> 
+    <html>
+        <!-- no head especificamos as dimenses da pagina -->
+        <head>
+            <style type="text/css">
+                <!-- Deixa o PDF do tamanho A4 sufite -->
+                @page {
+                    size: 21.0cm 30.7cm;
+                    margin-top: 25mm;
+                    margin-left: 20mm;
+                    margin-right: 20mm;
+                    margin-bottom: 25mm;
+                    
+                    @bottom-left {
+                        content: element(footer);
+                    } 
+                }
+            </style>
+        </head>
+        <body>
+            <!-- Assim como na linha abaixo como no mesmo codigo da tabela, observe como fazemos
+            a chamada da variavel criada no controller e em seguida o campo DE IMAGEM buscado na soql -->
+          
+           <apex:outputText value="{!opportunity.FRM_Logotipo__c}" escape="false"/> 
+            <div class="opportunity">
+                <h4>Oportunidade</h4>
+                <div style = "float: left;">
+                    Nome do pedido: {!opportunity.Name}<br/>
+                    Data Início: {!opportunity.DAT_Data_Inicio__c}<br/>
+                    Data Fim: {!opportunity.DAT_Data_Fim__c}<br/>    
+                </div>
+                <div style = "float: right;">
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                        Data de criação: <apex:param value="{!opportunity.CreatedDate}" /> 
+                    </apex:outputText><p/>
+                 
+                </div>
+            </div>
+            <br/><br/><br/>
+            <div class="produtosDaOpp">
+                <h4>Produtos</h4>
+                <table style="width:100%;" cellspacing= "0" cellpadding="2">
+                    <tr>
+                        <!-- <th>Imagem</th> -->
+                        <th>Produto</th>
+                        <th>Código</th>
+                        <th>Quantidade</th>
+                        <th>Preço Unitário</th>     
+                        <th>Custo Total</th>
+                        <th>Receita Total</th>                 
+                    </tr>
+                    <apex:repeat value="{!produtosDaOpp}" var="produtoDaOpp">
+                        <tr>  
+                          <td><apex:outputText value="{!produtoDaOpp.Product_img__c}" escape="false"/> </td>
+                            <td>{!produtoDaOpp.Product2.Name}</td> 
+                            <td>{!produtoDaOpp.Product2.ProductCode}</td>
+                            <td>{!produtoDaOpp.Quantity}</td>
+                            <td>{!produtoDaOpp.UnitPrice}</td>
+                            <td>{!produtoDaOpp.FRM_Custo_total__c}</td>
+                            <td>{!produtoDaOpp.FRM_Receita_Total__c}</td>
+                        </tr>
+                    </apex:repeat>
+                </table>
+                
+                <div class = "adicionais">
+                    <p>Observações da opportunity</p>
+                </div>
+                <p> Ordem de compra: {!opportunity.PKL_novoCliente__c}</p>
+                <p> Observação: {!opportunity.TXTL_Detalhamento_do_projeto__c}</p>
+                
+                <div class = "adicionais">
+                    <p>Totais</p>
+                </div>
+                <p> Valor total: {!opportunity.Amount}</p>
+            </div>
+        </body>
+    </html>
+</apex:page>

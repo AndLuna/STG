@@ -1,0 +1,24 @@
+th {
+    background-color: #767676!important;
+    color: white!important;
+    font-weight: normal;
+}
+body {
+    color: #8E8E8F;
+    
+}
+table {
+
+    border: 1px solid #8E8E8F;
+}
+tr {
+    border: 1px solid #8E8E8F!important;
+}
+td {
+    border: 1px solid #8E8E8F!important;
+}
+/* .adicionais {
+    background-color: #DEE5EC;
+    width: 100%;
+    color:rgb(43, 40, 40);
+} */
