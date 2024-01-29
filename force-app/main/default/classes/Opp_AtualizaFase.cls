@@ -10,7 +10,7 @@ public with sharing class Opp_AtualizaFase {
                 }
             }
 
-            if (opp.CHK_temDocumento__c) {
+            if (oldOpp != null && oldOpp.StageName == 'Negotiation/Review' && opp.CHK_temDocumento__c) {
                 opp.StageName = 'Formalização';
             }
 
