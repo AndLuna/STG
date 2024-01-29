@@ -1,0 +1,32 @@
+<template>
+    <lightning-card>
+    <div class="opp-score-container">
+        <div class="opp-score">
+            <div class={scoreColorClass}>
+                <span>{oppScore}</span>
+            </div>
+            <p>Pontos de Satisfação do Cliente</p>
+        </div>
+        <hr class="divider"/>
+        <div class="top-predictive-factors">
+            <p class="top-title">Top Fatores de Sucesso!</p>
+            <template if:true={satisfacaoPontos}>
+                <p>Satisfação em {satisfacaoPontos}%  </p>
+            </template>
+        </div>
+    </div>
+
+    <div class="improvement-section">
+        <div class="improvement-button" onclick={handleImprovementClick}>
+
+        </div>
+     <div class="negativePredictors">
+
+  
+        <template if:true={isImprovementVisible}>
+         
+        </template>
+    </div>
+</div>
+</lightning-card>
+</template>

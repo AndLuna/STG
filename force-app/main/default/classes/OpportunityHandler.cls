@@ -4,16 +4,18 @@ public with sharing class OpportunityHandler {
             if (Trigger.isUpdate) {
                 Opp_ChecarClienteRecorrente.run(newOpportunities);
                 Opp_AtualizaFase.run(newOpportunities, oldOpportunitiesMap);
+                OpportunityScoreController.calculateOppScore(Trigger.new);
             }
             if (Trigger.isInsert) {
                 Opp_ChecarClienteRecorrente.run(newOpportunities);
                 Opp_AtualizaFase.run(newOpportunities, new Map<Id, Opportunity>());
+                OpportunityScoreController.calculateOppScore(Trigger.new);
             }
         } else if (Trigger.isAfter) {
             if (Trigger.isUpdate) {
-                // Adicione a lógica de pós-atualização se necessário
+           
             } else if (Trigger.isInsert) {
-                // Adicione a lógica de pós-inserção se necessário
+          
             }
         }
     }
