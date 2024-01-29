@@ -10,6 +10,7 @@ public with sharing class OpportunityHandler {
                 Opp_ChecarClienteRecorrente.run(newOpportunities);
                 Opp_AtualizaFase.run(newOpportunities, new Map<Id, Opportunity>());
                 OpportunityScoreController.calculateOppScore(Trigger.new);
+                
             }
         } else if (Trigger.isAfter) {
             if (Trigger.isUpdate) {

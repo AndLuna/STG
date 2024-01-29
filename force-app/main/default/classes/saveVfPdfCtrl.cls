@@ -66,7 +66,8 @@ public class saveVfPdfCtrl {
         if (notesattch.size() > 0) {
             String title = notesattch[0].ContentDocument.Title;
             List<String> titleSplit = title.split('R');
-            String FinalTitle = 'PO' + notesattch.size();
+           // String FinalTitle = 'PO' + notesattch.size();
+           String FinalTitle = 'Cotação';
 
             PDFNo = FinalTitle;
 
