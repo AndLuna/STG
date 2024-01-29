@@ -1,4 +1,4 @@
- <apex:page standardController="Account" extensions="saveVfPdfCtrl" renderAs="pdf" applyBodyTag="false">
+ <apex:page standardController="Opportunity" extensions="saveVfPdfCtrl" renderAs="pdf" applyBodyTag="false">
 <head>
     <style> @page { size: A4 portrait; margin: 3mm; }
         body {
@@ -17,29 +17,60 @@
     </style>
     </head>
     <body>
-        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; border-collapse: collapse; border-color: #000; text-align:left;">
-            <thead>
-                <tr> 
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Industry</th>
-                    <th>Rating</th>
-                    <th>Description</th>
-                    <th>Website</th>
-                </tr>     
-            </thead>
- 
-            <apex:repeat value="{!accObj}" var="accItem">                
-                <tr width="100%" style="text-align: center;">
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Name}"/></td>
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Phone}"/></td>
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Industry}"/></td>
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Rating}"/></td>
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Description}"/></td>
-                    <td style="text-align:left;"><apex:outputText value="{!accItem.Website}"/></td>
+        <!-- Assim como na linha abaixo como no mesmo codigo da tabela, observe como fazemos
+        a chamada da variavel criada no controller e em seguida o campo DE IMAGEM buscado na soql -->
+      
+       <apex:outputText value="{!opportunity.FRM_Logotipo__c}" escape="false"/> 
+        <div class="opportunity">
+            <h4>Oportunidade</h4>
+            <div style = "float: left;">
+                Nome do pedido: {!opportunity.Name}<br/>
+                Data Início: {!opportunity.DAT_Data_Inicio__c}<br/>
+                Data Fim: {!opportunity.DAT_Data_Fim__c}<br/>    
+            </div>
+            <div style = "float: right;">
+                <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    Data de criação: <apex:param value="{!opportunity.CreatedDate}" /> 
+                </apex:outputText><p/>
+             
+            </div>
+        </div>
+        <br/><br/><br/>
+        <div class="produtosDaOpp">
+            <h4>Produtos</h4>
+            <table style="width:100%;" cellspacing= "0" cellpadding="2">
+                <tr>
+                    <!-- <th>Imagem</th> -->
+                    <th>Produto</th>
+                    <th>Código</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>     
+                    <th>Custo Total</th>
+                    <th>Receita Total</th>                 
                 </tr>
-            </apex:repeat>  
- 
-        </table>   
-    </body> 
+                <apex:repeat value="{!produtosDaOpp}" var="produtoDaOpp">
+                    <tr>  
+                      <td><apex:outputText value="{!produtoDaOpp.Product_img__c}" escape="false"/> </td>
+                        <td>{!produtoDaOpp.Product2.Name}</td> 
+                        <td>{!produtoDaOpp.Product2.ProductCode}</td>
+                        <td>{!produtoDaOpp.Quantity}</td>
+                        <td>{!produtoDaOpp.UnitPrice}</td>
+                        <td>{!produtoDaOpp.FRM_Custo_total__c}</td>
+                        <td>{!produtoDaOpp.FRM_Receita_Total__c}</td>
+                    </tr>
+                </apex:repeat>
+            </table>
+            
+            <div class = "adicionais">
+                <p>Observações da opportunity</p>
+            </div>
+            <p> Ordem de compra: {!opportunity.PKL_novoCliente__c}</p>
+            <p> Observação: {!opportunity.TXTL_Detalhamento_do_projeto__c}</p>
+            
+            <div class = "adicionais">
+                <p>Totais</p>
+            </div>
+            <p> Valor total: {!opportunity.Amount}</p>
+        </div>
+    </body>
 </apex:page>

@@ -1,6 +1,6 @@
 public class saveVfPdfCtrl {
     public String MstrId{GET;SET;}
-    public Account accObj{GET;SET;}
+    public Opportunity oppObj{GET;SET;}
     
     public String PDFNo{GET;SET;}
     public String EFNo{GET;SET;}
@@ -8,6 +8,10 @@ public class saveVfPdfCtrl {
     public BOOLEAN showpdf{GET;SET;}
     public ApexPages.PageReference page2{GET;SET;}
     public String baseURL{GET;SET;}
+    public final Opportunity opportunity {get;set;}
+    public final List<OpportunityLineItem> produtosDaOpp {get;set;}
+
+    
     
     public PageReference Cancel()
     {
@@ -19,8 +23,33 @@ public class saveVfPdfCtrl {
     public saveVfPdfCtrl(ApexPages.StandardController Controller){
         baseURL = Url.getOrgDomainURL().toExternalForm();
         MstrId = ApexPages.currentPage().getParameters().get('id');
-        accObj = [SELECT Id, Name, Phone, Industry, Rating, Description, Website, TYPE, (SELECT Id, Name, FirstName, LastName, Email, AccountId, Phone, Title FROM Contacts) FROM Account WHERE Id =: MstrId ];
+        oppObj = [SELECT Id, Name FROM Opportunity WHERE Id =: MstrId ];
+        String OpportunityId = getIdNaURL();
+        produtosDaOpp = getProdutosDaOpp(OpportunityId);
+        opportunity = getOpp(OpportunityId);
     
+    }
+
+
+    public String getIdNaURL(){
+        return ApexPages.currentPage().getParameters().get('id');
+    }
+    
+    public Opportunity getOpp(String OpportunityId){
+        List<Opportunity> opportunities = [SELECT name, DAT_Data_Inicio__c, Amount, DAT_Data_Fim__c, TXTL_Detalhamento_do_projeto__c, PKL_novoCliente__c, FRM_Logotipo__c, CreatedDate
+
+                               FROM Opportunity WHERE Id = :OpportunityId]; 
+        return opportunities.get(0);
+    }
+    
+    public List<OpportunityLineItem> getProdutosDaOpp(String OpportunityId){
+        List<OpportunityLineItem> items = [SELECT Product2.Name, Quantity,
+                                 Product2.ProductCode, UnitPrice, FRM_Custo_total__c,
+                                 FRM_Receita_Total__c, Product_img__c
+                                 FROM OpportunityLineItem WHERE OpportunityId = :OpportunityId
+                                ];
+      
+        return items;
     }
     
     
@@ -64,9 +93,9 @@ public class saveVfPdfCtrl {
             conDocLink.ContentDocumentId = conDoc; 
             conDocLink.shareType = 'V';
             INSERT conDocLink;
-            UPDATE accObj;
+            UPDATE oppObj;
     
-             PageReference pageRef = NEW PageReference( baseURL+'/lightning/r/Account/' + System.currentPageReference().getParameters().get('id')+'/view');
+             PageReference pageRef = NEW PageReference( baseURL+'/lightning/r/Opportunity/' + System.currentPageReference().getParameters().get('id')+'/view');
             pageRef.setRedirect(TRUE);
             //system.debug('pageRef@@@ ' + pageRef);
             RETURN pageRef;
