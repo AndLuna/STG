@@ -1,8 +1,10 @@
 <apex:page standardController="Opportunity"  extensions="saveVfPdfCtrl" showHeader="true" title="Quotation PDF" showQuickActionVfHeader="false" >
     <apex:form >    
         <center>   
-            <apex:commandButton action="{!pdfAction}"  value="Save Attachment"/> 
-            <apex:commandButton action="{!Cancel}"  value="Cancel" /> </center> <br/>
+            <apex:commandButton action="{!saveAction}" value="Salvar"/>
+            <apex:commandButton action="{!saveAndEmailAction}" value="Salvar e enviar"/>
+            <apex:commandButton action="{!Cancel}" value="Cancel"/>
+        </center> <br/>
         <center>
             <apex:iframe height="700px"  width="1100px" src="/apex/savePdfVp?id={!MstrID}"/>
         </center>
