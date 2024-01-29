@@ -1,14 +1,12 @@
-<!-- observe como nas proximas duas linhas chama o controller e o css da pagina -->
 <apex:page controller="Opp_OrderController" renderAs="pdf">
-      <apex:stylesheet value="{!$Resource.cssPedido}" /> 
+      <!-- <apex:stylesheet value="{!$Resource.cssPedido}" /> 
       <apex:form>
         <apex:commandButton action="{!pdfAction}" value="Salvar PDF"/>
     </apex:form>
     <html>
-        <!-- no head especificamos as dimenses da pagina -->
         <head>
             <style type="text/css">
-                <!-- Deixa o PDF do tamanho A4 sufite -->
+                 Deixa o PDF do tamanho A4 sufite 
                 @page {
                     size: 21.0cm 30.7cm;
                     margin-top: 25mm;
@@ -23,9 +21,7 @@
             </style>
         </head>
         <body>
-            <!-- Assim como na linha abaixo como no mesmo codigo da tabela, observe como fazemos
-            a chamada da variavel criada no controller e em seguida o campo DE IMAGEM buscado na soql -->
-          
+
            <apex:outputText value="{!opportunity.FRM_Logotipo__c}" escape="false"/> 
             <div class="opportunity">
                 <h4>Oportunidade</h4>
@@ -46,7 +42,7 @@
                 <h4>Produtos</h4>
                 <table style="width:100%;" cellspacing= "0" cellpadding="2">
                     <tr>
-                        <!-- <th>Imagem</th> -->
+                         <th>Imagem</th> 
                         <th>Produto</th>
                         <th>Código</th>
                         <th>Quantidade</th>
@@ -79,5 +75,5 @@
                 <p> Valor total: {!opportunity.Amount}</p>
             </div>
         </body>
-    </html>
+    </html> -->
 </apex:page>
