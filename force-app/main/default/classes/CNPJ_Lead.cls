@@ -60,7 +60,7 @@ public with sharing class CNPJ_Lead {
             System.debug('Exception Line: ' + e.getLineNumber());
 
             Lead leadToUpdateOnError = new Lead(Id = leadId, 
-                TXT_situacaoCadastral__c = 'Erro na validação do CNPJ. Consulte o log para mais detalhes.'
+                TXT_situacaoCadastral__c = 'CNPJ não disponivel no banco de dados da API.'
             );
 
             update leadToUpdateOnError;
