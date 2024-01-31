@@ -5,7 +5,7 @@ public class CNPJ_LeadTest {
         return new Lead(
             lastName = 'teste',
             company = 'teste',
-            TXT_CNPJ__c = '21'
+            TXT_CNPJ__c = '19131243000197'
         );
     }
     

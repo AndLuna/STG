@@ -6,7 +6,7 @@ private class Lead_createTaskTest {
             FirstName = 'Test',
             LastName = 'Lead',
             Company = 'Test Company',
-            TXT_CNPJ__c = '12345678901234',
+            TXT_CNPJ__c = '19131243000197',
             OwnerId = UserInfo.getUserId()
         );
         insert testLead;
