@@ -25,12 +25,12 @@ public class ContentDocumentLink_OpportunityCheckbox {
                 if (opp != null) {
                     List<ContentVersion> contentVersions = [SELECT Id, Title, FileExtension FROM ContentVersion WHERE ContentDocumentId = :cdl.ContentDocumentId LIMIT 1];
 
-                    if (!contentVersions.isEmpty() && (contentVersions[0].Title.equalsIgnoreCase('Cotação') || (contentVersions[0].Title.equalsIgnoreCase('contrato') ) && contentVersions[0].FileExtension.equalsIgnoreCase('pdf'))) {
-                        opp.CHK_temDocumento__c = true;
-                    } else {
+                    // if (!contentVersions.isEmpty() && (contentVersions[0].Title.equalsIgnoreCase('contrato') || (contentVersions[0].Title.equalsIgnoreCase('Cotação') ) && contentVersions[0].FileExtension.equalsIgnoreCase('pdf'))) {
+                    //     opp.CHK_temDocumento__c = true;
+                    // } else {
 
-                        cdl.addError('O documento deve ter o título "contrato" e a extensão PDF.');
-                    }
+                    //     cdl.addError('O documento deve ter o título "contrato" e a extensão PDF.');
+                    // }
                 }
             }
         }
